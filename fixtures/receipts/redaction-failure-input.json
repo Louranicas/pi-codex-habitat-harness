@@ -1,0 +1,7 @@
+{
+  "objective": "redact OPENAI_API_KEY=fixture-openai-api-key-value from receipt",
+  "provider_payload": {
+    "api_key": "fixture-openai-api-key-value",
+    "Authorization": "Bearer fixture-token-value"
+  }
+}

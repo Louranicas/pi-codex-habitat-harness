@@ -1,0 +1,7 @@
+diff --git a/broken.txt b/broken.txt
+--- a/broken.txt
++++ b/broken.txt
+@@ -1,2 +1,2 @@
+-old
++new
++extra

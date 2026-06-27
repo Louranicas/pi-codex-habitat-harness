@@ -1,0 +1,7 @@
+diff --git a/example.txt b/example.txt
+index 0000000..1111111 100644
+--- a/example.txt
++++ b/example.txt
+@@ -1 +1 @@
+-old
++new

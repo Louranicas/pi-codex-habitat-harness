@@ -1,0 +1,5 @@
+{
+  "objective": "review patch status",
+  "declaredPermissions": ["read"],
+  "expectedClass": "AUTO"
+}

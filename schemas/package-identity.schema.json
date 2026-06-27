@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://habitat.local/schemas/codex-pi-harness-package-identity.schema.json",
+  "title": "Codex Pi Harness PackageIdentity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packageName", "packageRoot", "receiptNamespace"],
+  "properties": {
+    "packageName": { "const": "pi-codex-habitat-harness" },
+    "packageRoot": { "const": "pi-codex-habitat-harness" },
+    "receiptNamespace": { "const": "codex-pi-harness" }
+  },
+  "$comment": "S1008820 GATE-00 PackageIdentity"
+}

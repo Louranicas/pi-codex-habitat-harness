@@ -1,0 +1,3 @@
+{"type":"item.started","id":"fixture-1"}
+{"type":"item.completed","id":"fixture-1"}
+{"type":"turn.completed","turn_id":"fixture-turn"}

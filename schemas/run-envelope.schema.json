@@ -1,0 +1,647 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://habitat.local/schemas/codex-pi-harness-receipt.schema.json",
+  "title": "Codex Pi Harness RunEnvelope v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "runId",
+    "kind",
+    "packageIdentity",
+    "cwd",
+    "objectiveHash",
+    "authState",
+    "liveCallState",
+    "substrateClass",
+    "receiptCirculationClass",
+    "versions",
+    "looms",
+    "fabric",
+    "deepDiffForge",
+    "runbook",
+    "justfile",
+    "liveServices",
+    "zellij",
+    "safety",
+    "artifacts",
+    "receipts",
+    "morphogenic",
+    "dissentHealth",
+    "skillUsed",
+    "prevHash",
+    "eventHash",
+    "verdict"
+  ],
+  "properties": {
+    "schema": {
+      "const": "pi-codex-habitat/run-envelope/v2"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "codex_thread",
+        "agents_ts_workflow",
+        "agents_py_workflow",
+        "morphogenic_loop",
+        "factory_route",
+        "review"
+      ]
+    },
+    "packageIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packageName",
+        "packageRoot",
+        "receiptNamespace"
+      ],
+      "properties": {
+        "packageName": {
+          "const": "pi-codex-habitat-harness"
+        },
+        "packageRoot": {
+          "const": "pi-codex-habitat-harness"
+        },
+        "receiptNamespace": {
+          "const": "codex-pi-harness"
+        }
+      }
+    },
+    "cwd": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objectiveHash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authState": {
+      "enum": [
+        "present",
+        "missing",
+        "invalid",
+        "not_required"
+      ]
+    },
+    "liveCallState": {
+      "enum": [
+        "not_required",
+        "skipped",
+        "attempted",
+        "passed",
+        "failed"
+      ]
+    },
+    "substrateClass": {
+      "enum": [
+        "local_only",
+        "habitat_observed",
+        "factory_integrated",
+        "factory_armed"
+      ]
+    },
+    "receiptCirculationClass": {
+      "enum": [
+        "local_file",
+        "habitat_observed",
+        "factory_integrated"
+      ]
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pi": {
+          "type": "string"
+        },
+        "node": {
+          "type": "string"
+        },
+        "codexSdk": {
+          "type": "string"
+        },
+        "codexCli": {
+          "type": "string"
+        },
+        "openaiAgentsTs": {
+          "type": "string"
+        },
+        "openaiAgentsPy": {
+          "type": "string"
+        },
+        "zod": {
+          "type": "string"
+        },
+        "zellij": {
+          "type": "string"
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "reason",
+        "declaredPermissions",
+        "observedEffects",
+        "permissionDelta"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "AUTO",
+            "DEFER",
+            "GATE",
+            "BLOCK"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "declaredPermissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "observedEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissionDelta": {
+          "enum": [
+            "none",
+            "expected",
+            "violation",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "morphogenic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "morphIrId",
+        "cwrRunGraph",
+        "ceeFitnessScalar",
+        "ceeVerdict"
+      ],
+      "properties": {
+        "morphIrId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cwrRunGraph": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ceeFitnessScalar": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ceeVerdict": {
+          "enum": [
+            "passed",
+            "failed",
+            "not_evaluable",
+            "degraded_refuter",
+            "not_run"
+          ]
+        }
+      }
+    },
+    "dissentHealth": {
+      "enum": [
+        "healthy",
+        "dark",
+        "unknown",
+        "not_required"
+      ]
+    },
+    "skillUsed": {
+      "enum": [
+        "none",
+        "auto",
+        "forced"
+      ]
+    },
+    "prevHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eventHash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "enum": [
+        "pass",
+        "fail",
+        "partial",
+        "skipped",
+        "unknown"
+      ]
+    },
+    "zellij": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session",
+        "tabCount",
+        "paneCount",
+        "commandSource",
+        "pluginRefs"
+      ],
+      "properties": {
+        "session": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tabCount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "paneCount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "commandSource": {
+          "enum": [
+            "zellij_action",
+            "zellij_session_action",
+            "watch",
+            "dump_screen",
+            "plugin_pipe",
+            "not_used"
+          ]
+        },
+        "pluginRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "liveServices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "portOrTransport",
+          "healthPath",
+          "vaultAnchor",
+          "probeState",
+          "integrationState"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "portOrTransport": {
+            "type": "string"
+          },
+          "healthPath": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vaultAnchor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "probeState": {
+            "enum": [
+              "healthy",
+              "degraded",
+              "down",
+              "unknown",
+              "not_probed"
+            ]
+          },
+          "integrationState": {
+            "enum": [
+              "mapped",
+              "observed",
+              "integrated",
+              "degraded",
+              "retired"
+            ]
+          }
+        }
+      }
+    },
+    "looms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "templates",
+        "wrights",
+        "shipArmed"
+      ],
+      "properties": {
+        "templates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "gate",
+              "probe",
+              "ship"
+            ]
+          }
+        },
+        "wrights": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "LOOMWRIGHT",
+              "TAILWRIGHT",
+              "SHIPWRIGHT",
+              "factory-conductor"
+            ]
+          }
+        },
+        "shipArmed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "justfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "dumpJsonOk",
+        "fmtCheckOk",
+        "recipe",
+        "recipeClass"
+      ],
+      "properties": {
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dumpJsonOk": {
+          "type": "boolean"
+        },
+        "fmtCheckOk": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "recipe": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "recipeClass": {
+          "enum": [
+            "observe",
+            "quality",
+            "diagnostics",
+            "ops",
+            "mutating",
+            "armed",
+            "unknown",
+            "not_used"
+          ]
+        }
+      }
+    },
+    "runbook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "authorityClass",
+        "verificationState"
+      ],
+      "properties": {
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorityClass": {
+          "enum": [
+            "local",
+            "dry_run",
+            "read_only",
+            "mutating",
+            "armed",
+            "emergency",
+            "unknown",
+            "not_used"
+          ]
+        },
+        "verificationState": {
+          "enum": [
+            "not_required",
+            "pending",
+            "verified",
+            "failed",
+            "awaiting_human"
+          ]
+        }
+      }
+    },
+    "fabric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "pattern",
+        "patternClass",
+        "dryRun"
+      ],
+      "properties": {
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pattern": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "patternClass": {
+          "enum": [
+            "read_only",
+            "dry_run",
+            "network_ingest",
+            "code_writing",
+            "file_mutating",
+            "server",
+            "unknown",
+            "not_used"
+          ]
+        },
+        "dryRun": {
+          "type": "boolean"
+        }
+      }
+    },
+    "deepDiffForge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "engineState",
+        "reviewSchema",
+        "riskSummary",
+        "patchTruthPreserved"
+      ],
+      "properties": {
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "engineState": {
+          "enum": [
+            "available_clean",
+            "available_dirty",
+            "unavailable",
+            "not_used"
+          ]
+        },
+        "reviewSchema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "riskSummary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "patchTruthPreserved": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "authState": {
+            "const": "missing"
+          }
+        },
+        "required": [
+          "authState"
+        ]
+      },
+      "then": {
+        "not": {
+          "properties": {
+            "liveCallState": {
+              "const": "passed"
+            }
+          },
+          "required": [
+            "liveCallState"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "substrateClass": {
+            "const": "factory_armed"
+          }
+        },
+        "required": [
+          "substrateClass"
+        ]
+      },
+      "then": {
+        "properties": {
+          "receiptCirculationClass": {
+            "const": "factory_integrated"
+          }
+        }
+      }
+    }
+  ],
+  "$comment": "Backlink: Codex Pi Harness S1008820 plan ai_docs/CODEX_PI_HARNESS_PLAN_S1008820.md ; BIDI map ai_docs/CODEX_PI_HARNESS_BIDI_LINK_MAP_S1008820.md"
+}

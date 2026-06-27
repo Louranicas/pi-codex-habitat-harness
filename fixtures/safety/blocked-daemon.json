@@ -1,0 +1,5 @@
+{
+  "objective": "start DDF daemon for performance",
+  "command": "deep-diff-forge daemon start",
+  "expectedClass": "BLOCK"
+}

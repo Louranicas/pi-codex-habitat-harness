@@ -1,0 +1,39 @@
+{
+  "name": "pi-codex-habitat-harness",
+  "version": "0.1.0",
+  "description": "Codex-optimized Pi harness for the Zellij Habitat factory (S1008820) — offline judge spine first slice.",
+  "type": "module",
+  "keywords": ["pi-package", "codex", "habitat", "s1008820"],
+  "private": true,
+  "pi": {
+    "extensions": ["./extensions/index.ts"],
+    "skills": ["./skills"],
+    "prompts": ["./prompts"]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "selftest": "npm run typecheck && npm test",
+    "status": "tsx scripts/status.ts"
+  },
+  "dependencies": {
+    "@openai/agents": "0.12.0",
+    "@openai/codex-sdk": "0.142.3",
+    "typebox": "^1.0.55",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  }
+}
