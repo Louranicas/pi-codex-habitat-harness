@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TSX="$ROOT/node_modules/.bin/tsx"
+if [[ ! -x "$TSX" ]]; then
+  echo "start-codex-harness: missing local tsx; run: cd $ROOT && npm install" >&2
+  exit 127
+fi
+
+if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+  if [[ -t 0 && -t 1 ]]; then
+    read -rsp 'OPENAI_API_KEY: ' OPENAI_API_KEY
+    echo
+    export OPENAI_API_KEY
+  else
+    echo "start-codex-harness: OPENAI_API_KEY missing; run in an interactive terminal or export it first" >&2
+    exit 1
+  fi
+fi
+
+exec "$TSX" "$ROOT/scripts/start-codex-harness.ts" "$@"

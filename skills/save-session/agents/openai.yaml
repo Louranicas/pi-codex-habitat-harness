@@ -1,0 +1,4 @@
+interface:
+  display_name: "Save Session"
+  short_description: "Persist and verify a resumable session checkpoint"
+  default_prompt: "Use $save-session to checkpoint this session across the Habitat memory layers and verify every durable write."

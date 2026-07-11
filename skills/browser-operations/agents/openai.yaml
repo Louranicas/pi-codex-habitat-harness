@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Operations"
+  short_description: "Drive browser sessions and seal UI evidence"
+  default_prompt: "Use the terminal-first Playwright CLI to inspect or test this browser workflow, capture desktop and mobile evidence, and seal the artifacts."

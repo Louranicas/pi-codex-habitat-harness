@@ -3,22 +3,43 @@
   "version": "0.1.0",
   "description": "Codex-optimized Pi harness for the Zellij Habitat factory (S1008820) — offline judge spine first slice.",
   "type": "module",
-  "keywords": ["pi-package", "codex", "habitat", "s1008820"],
+  "keywords": [
+    "pi-package",
+    "codex",
+    "habitat",
+    "s1008820"
+  ],
   "private": true,
+  "bin": {
+    "codex-harness": "./bin/codex-harness",
+    "start-codex-harness": "./bin/start-codex-harness"
+  },
   "pi": {
-    "extensions": ["./extensions/index.ts"],
-    "skills": ["./skills"],
-    "prompts": ["./prompts"]
+    "extensions": [
+      "./extensions/index.ts"
+    ],
+    "skills": [
+      "./skills"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "selftest": "npm run typecheck && npm test",
-    "status": "tsx scripts/status.ts"
+    "status": "tsx scripts/status.ts",
+    "arena": "tsx scripts/arena.ts",
+    "observe-proof": "tsx scripts/live-observe-proof.ts",
+    "observe-judge-replay": "tsx scripts/replay-observe-judge.ts",
+    "codex-harness": "./bin/codex-harness",
+    "start-codex-harness": "./bin/start-codex-harness"
   },
   "dependencies": {
     "@openai/agents": "0.12.0",
-    "@openai/codex-sdk": "0.142.3",
+    "@openai/codex-sdk": "0.144.0",
+    "@playwright/cli": "0.1.17",
     "typebox": "^1.0.55",
     "zod": "4.4.3"
   },

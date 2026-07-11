@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atuin History Intelligence"
+  short_description: "Analyze Atuin history without leaking commands"
+  default_prompt: "Use -history-intelligence to produce a privacy-safe, provenance-aware history analysis for this workspace."

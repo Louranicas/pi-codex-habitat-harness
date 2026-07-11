@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atuin Script Curation"
+  short_description: "Audit and curate Atuin scripts before execution"
+  default_prompt: "Use -script-curation to assess existing Atuin scripts and design a reusable script without executing or registering it."

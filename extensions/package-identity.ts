@@ -1,5 +1,6 @@
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { access } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { FORBIDDEN_ALTERNATE_ROOT, PACKAGE_IDENTITY } from "./constants.js";
 
 export interface PackageIdentityCheck {
@@ -23,9 +24,42 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+function readPackageName(path: string): string | null {
+  try {
+    const parsed = JSON.parse(readFileSync(path, "utf8")) as { name?: unknown };
+    return typeof parsed.name === "string" ? parsed.name : null;
+  } catch {
+    return null;
+  }
+}
+
+export function workspaceRootFor(cwd: string): string {
+  if (existsSync(join(cwd, "package.json")) && readPackageName(join(cwd, "package.json")) === PACKAGE_IDENTITY.packageName) {
+    return dirname(cwd);
+  }
+  return cwd;
+}
+
+export function resolveWorkspaceDirectory(ctxCwd: string, requested?: string): string {
+  const workspace = realpathSync(workspaceRootFor(ctxCwd));
+  const lexicalCandidate = requested
+    ? (isAbsolute(requested) ? resolve(requested) : resolve(workspace, requested))
+    : workspace;
+  let candidate: string;
+  try {
+    candidate = realpathSync(lexicalCandidate);
+  } catch (error) {
+    throw new Error(`workingDirectory cannot be resolved: ${requested ?? lexicalCandidate}: ${error instanceof Error ? error.message : String(error)}`);
+  }
+  const rel = relative(workspace, candidate);
+  if (rel.startsWith("..") || isAbsolute(rel)) throw new Error(`workingDirectory outside workspace refused after symlink resolution: ${requested ?? candidate}`);
+  return candidate;
+}
+
 export async function checkPackageIdentity(workspaceCwd: string): Promise<PackageIdentityCheck> {
-  const canonicalRoot = join(workspaceCwd, PACKAGE_IDENTITY.packageRoot);
-  const alternateRoot = join(workspaceCwd, FORBIDDEN_ALTERNATE_ROOT);
+  const normalizedWorkspace = workspaceRootFor(workspaceCwd);
+  const canonicalRoot = join(normalizedWorkspace, PACKAGE_IDENTITY.packageRoot);
+  const alternateRoot = join(normalizedWorkspace, FORBIDDEN_ALTERNATE_ROOT);
   const canonicalRootPresent = await exists(canonicalRoot);
   const forbiddenAlternateRootPresent = await exists(alternateRoot);
 

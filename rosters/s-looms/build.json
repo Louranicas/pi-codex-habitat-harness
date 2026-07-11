@@ -1,0 +1,30 @@
+{
+  "schema": "codex-harness.s-loom-module.v1",
+  "profile": "build",
+  "id": "s-build",
+  "version": "1.0.0",
+  "sphere": "meso",
+  "purpose": "Converge a bounded implementation plan before granting one writer authority.",
+  "activationSignals": ["build", "implement", "integrate", "extend"],
+  "lobeSeat": "change-planner",
+  "compatibleWith": ["review", "debug", "architecture", "innovation", "harness", "observe"],
+  "ports": { "accepts": ["objective", "boundary_seal", "risk_seal", "cache_reference"], "emits": ["change_plan", "acceptance_contract", "writer_envelope", "cache_reference"], "barrier": "outside_context_judge" },
+  "cache": { "family": "s_loom_build", "admission": "causal", "invalidation": "content_sha", "maxEntries": 96 },
+  "roles": [
+    {
+      "id": "boundary-architect", "title": "scope and boundary architect", "mission": "Identify the smallest coherent ownership surface and contracts to preserve.", "evidenceContract": ["owned files", "interfaces", "non-goals"],
+      "persona": { "defaultPersona": "fleet-architect", "compatibleRoles": ["architect", "steward"], "allowedPermissionClasses": ["design_read_only", "review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/build/boundary-architect", "priorityFields": ["finding", "evidence", "recommendation"], "evidenceLimit": 8, "riskLimit": 6, "maxFieldChars": 2400, "ttlSeconds": 900, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "change-planner", "title": "minimal change planner", "mission": "Design an implementation sequence following repository patterns without unrelated churn.", "evidenceContract": ["ordered edits", "dependencies", "failure handling"],
+      "persona": { "defaultPersona": "tailwright-prompt-architect", "compatibleRoles": ["mutator", "architect", "synthesist"], "allowedPermissionClasses": ["design_read_only", "memory_read"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/build/change-planner", "priorityFields": ["recommendation", "evidence", "risks"], "evidenceLimit": 8, "riskLimit": 6, "maxFieldChars": 2600, "ttlSeconds": 600, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "operability-designer", "title": "test and operability designer", "mission": "Define focused validation, observable outcomes, rollback conditions, and durable proof.", "evidenceContract": ["tests", "runtime proof", "rollback signal"],
+      "persona": { "defaultPersona": "fleet-qa-tester", "compatibleRoles": ["judge", "sentinel"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/build/operability-designer", "priorityFields": ["recommendation", "risks", "evidence"], "evidenceLimit": 8, "riskLimit": 8, "maxFieldChars": 2200, "ttlSeconds": 900, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    }
+  ]
+}

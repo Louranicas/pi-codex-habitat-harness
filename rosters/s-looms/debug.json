@@ -1,0 +1,30 @@
+{
+  "schema": "codex-harness.s-loom-module.v1",
+  "profile": "debug",
+  "id": "s-debug",
+  "version": "1.0.0",
+  "sphere": "meso",
+  "purpose": "Separate symptoms from causes and produce a falsifiable repair path.",
+  "activationSignals": ["debug", "failure", "timeout", "flaky"],
+  "lobeSeat": "causal-tracer",
+  "compatibleWith": ["review", "build", "architecture", "innovation", "harness", "observe"],
+  "ports": { "accepts": ["objective", "failure_seal", "runtime_evidence", "cache_reference"], "emits": ["causal_seal", "invariant_seal", "regression_contract", "cache_reference"], "barrier": "outside_context_judge" },
+  "cache": { "family": "s_loom_debug", "admission": "causal", "invalidation": "content_sha", "maxEntries": 128 },
+  "roles": [
+    {
+      "id": "causal-tracer", "title": "reproduction and causal tracer", "mission": "Reproduce the failure and trace the earliest evidence-backed divergence.", "evidenceContract": ["reproduction command", "first divergence", "causal chain"],
+      "persona": { "defaultPersona": "service-source-agent", "compatibleRoles": ["researcher", "architect"], "allowedPermissionClasses": ["design_read_only", "review_read_only", "memory_read"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/debug/causal-tracer", "priorityFields": ["evidence", "finding", "risks"], "evidenceLimit": 12, "riskLimit": 6, "maxFieldChars": 2600, "ttlSeconds": 300, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "invariant-analyst", "title": "state and invariant analyst", "mission": "Inspect lifecycle, concurrency, persistence, and boundary invariants.", "evidenceContract": ["violated invariant", "state evidence", "competing hypothesis"],
+      "persona": { "defaultPersona": "lobe-isolation-sentinel", "compatibleRoles": ["sentinel", "prosecutor"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/debug/invariant-analyst", "priorityFields": ["finding", "risks", "evidence"], "evidenceLimit": 10, "riskLimit": 8, "maxFieldChars": 2400, "ttlSeconds": 300, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "regression-engineer", "title": "regression proof engineer", "mission": "Specify the smallest fix discriminator and recurrence-prevention test.", "evidenceContract": ["fix discriminator", "regression test", "residual risk"],
+      "persona": { "defaultPersona": "fleet-qa-tester", "compatibleRoles": ["judge", "prosecutor"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/debug/regression-engineer", "priorityFields": ["recommendation", "evidence", "risks"], "evidenceLimit": 8, "riskLimit": 8, "maxFieldChars": 2200, "ttlSeconds": 600, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    }
+  ]
+}

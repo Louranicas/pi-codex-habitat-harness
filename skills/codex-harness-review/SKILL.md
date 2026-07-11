@@ -1,3 +1,9 @@
+---
+name: codex-harness-review
+description: Review S1008820 Codex Pi Harness receipts, safety classifications, DDF artifacts, and implementation claims.
+user-invocable: true
+---
+
 # Codex Harness Review
 
 Use this skill when reviewing S1008820 Codex Pi Harness receipts, safety classifications, DDF artifacts, or implementation claims.

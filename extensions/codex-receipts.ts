@@ -46,14 +46,40 @@ function redact(value: unknown): unknown {
   return value;
 }
 
-export async function readLastReceiptHash(cwd: string): Promise<string | null> {
+export async function readLastReceipt(cwd: string): Promise<RunEnvelope | null> {
   const path = receiptLedgerPath(cwd);
   if (!existsSync(path)) return null;
   const text = await readFile(path, "utf8");
   const lines = text.trim().split("\n").filter(Boolean);
   if (lines.length === 0) return null;
-  const last = JSON.parse(lines[lines.length - 1] ?? "{}");
-  return typeof last.eventHash === "string" ? last.eventHash : null;
+  return RunEnvelopeSchema.parse(JSON.parse(lines[lines.length - 1] ?? "{}"));
+}
+
+export async function readLastReceiptHash(cwd: string): Promise<string | null> {
+  const last = await readLastReceipt(cwd);
+  return last?.eventHash ?? null;
+}
+
+export async function readLastReceiptCirculationClass(cwd: string): Promise<RunEnvelope["receiptCirculationClass"] | null> {
+  const last = await readLastReceipt(cwd);
+  return last?.receiptCirculationClass ?? null;
+}
+
+export async function strongestReceiptCirculationClass(cwd: string): Promise<RunEnvelope["receiptCirculationClass"]> {
+  const path = receiptLedgerPath(cwd);
+  if (!existsSync(path)) return "local_file";
+  const lines = (await readFile(path, "utf8")).split("\n").filter(Boolean);
+  let best: RunEnvelope["receiptCirculationClass"] = "local_file";
+  for (const line of lines) {
+    try {
+      const parsed = RunEnvelopeSchema.parse(JSON.parse(line));
+      if (parsed.receiptCirculationClass === "factory_integrated") return "factory_integrated";
+      if (parsed.receiptCirculationClass === "habitat_observed") best = "habitat_observed";
+    } catch {
+      // Ledger validation reports malformed lines separately; status stays fail-soft.
+    }
+  }
+  return best;
 }
 
 export async function appendReceipt(cwd: string, envelope: RunEnvelope): Promise<ReceiptWriteResult> {

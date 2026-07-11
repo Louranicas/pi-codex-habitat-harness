@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atuin KV Coordination"
+  short_description: "Inspect Atuin KV coordination without unsafe writes"
+  default_prompt: "Use -kv-coordination to inspect the relevant KV namespace and assess freshness and coordination safety."

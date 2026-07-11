@@ -1,0 +1,30 @@
+{
+  "schema": "codex-harness.s-loom-module.v1",
+  "profile": "architecture",
+  "id": "s-architecture",
+  "version": "1.0.0",
+  "sphere": "meso",
+  "purpose": "Evaluate system boundaries and operational tradeoffs before cross-module change.",
+  "activationSignals": ["architecture", "migration", "cross-module", "distributed"],
+  "lobeSeat": "system-mapper",
+  "compatibleWith": ["review", "build", "debug", "innovation", "harness", "observe"],
+  "ports": { "accepts": ["objective", "system_context", "risk_seal", "cache_reference"], "emits": ["boundary_seal", "tradeoff_seal", "rollback_contract", "cache_reference"], "barrier": "outside_context_judge" },
+  "cache": { "family": "s_loom_architecture", "admission": "causal", "invalidation": "content_sha", "maxEntries": 96 },
+  "roles": [
+    {
+      "id": "system-mapper", "title": "system boundary mapper", "mission": "Map authority, data flow, mutable surfaces, and integration contracts.", "evidenceContract": ["component map", "authority boundary", "data or control flow"],
+      "persona": { "defaultPersona": "distributed-lobe-conductor", "compatibleRoles": ["architect", "synthesist"], "allowedPermissionClasses": ["design_read_only", "memory_read"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/architecture/system-mapper", "priorityFields": ["evidence", "finding", "recommendation"], "evidenceLimit": 12, "riskLimit": 6, "maxFieldChars": 2800, "ttlSeconds": 1800, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "coupling-critic", "title": "simplicity and coupling critic", "mission": "Challenge unnecessary coordination, abstractions, dependencies, and failure amplification.", "evidenceContract": ["coupling cost", "simpler option", "tradeoff"],
+      "persona": { "defaultPersona": "interlobe-membrane-steward", "compatibleRoles": ["steward", "prosecutor"], "allowedPermissionClasses": ["design_read_only", "review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/architecture/coupling-critic", "priorityFields": ["risks", "recommendation", "evidence"], "evidenceLimit": 8, "riskLimit": 10, "maxFieldChars": 2400, "ttlSeconds": 1200, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "operations-reviewer", "title": "operations and rollback reviewer", "mission": "Assess operability, observability, recovery, and reversible sequencing.", "evidenceContract": ["health signal", "failure containment", "rollback boundary"],
+      "persona": { "defaultPersona": "resilience-draughtsman", "compatibleRoles": ["architect", "sentinel"], "allowedPermissionClasses": ["design_read_only", "review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/architecture/operations-reviewer", "priorityFields": ["recommendation", "risks", "evidence"], "evidenceLimit": 8, "riskLimit": 8, "maxFieldChars": 2400, "ttlSeconds": 1200, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "codex-harness.s-loom-module.v1",
+  "profile": "observe",
+  "id": "s-observe-benchmark",
+  "version": "1.0.0",
+  "sphere": "meso",
+  "purpose": "Correlate logs, monitoring signals, benchmark validity, and deployment-readiness evidence without actuating a deployment.",
+  "activationSignals": ["logging", "monitoring", "observability", "slo", "benchmark", "deployment readiness"],
+  "lobeSeat": "benchmark-methodologist",
+  "compatibleWith": ["review", "build", "debug", "architecture", "innovation", "harness"],
+  "ports": {
+    "accepts": ["objective", "log_snapshot", "metric_baseline", "benchmark_artifact", "deployment_envelope", "cache_reference"],
+    "emits": ["log_evidence_seal", "slo_seal", "benchmark_comparison_seal", "deployment_readiness_seal", "cache_reference"],
+    "barrier": "outside_context_judge"
+  },
+  "clusterContract": {
+    "micro": [
+      { "roleId": "log-forensics", "loop": "normalize, correlate, and bound log evidence", "evidence": "timestamped source references, error signatures, and missing intervals" },
+      { "roleId": "monitoring-slo", "loop": "compare signals against explicit SLI and SLO windows", "evidence": "window, numerator, denominator, thresholds, and uncertainty" },
+      { "roleId": "benchmark-methodologist", "loop": "test baseline comparability and measurement validity", "evidence": "workload, environment, samples, dispersion, and regression threshold" },
+      { "roleId": "deployment-evidence-auditor", "loop": "reconcile readiness claims with receipts and rollback evidence", "evidence": "artifact hashes, gate results, rollback proof, and unresolved blockers" }
+    ],
+    "meso": "Four read-only Hopf-separated evidence lanes exchange typed seals through the gyroid medium; no lane shares mutable state.",
+    "macro": "An outside-context judge may issue proceed, revise, or collapse; proceed requires at least two accepted lane digests and remains non-actuating.",
+    "antiGoodhart": [
+      "Never optimize a metric without preserving its workload, window, denominator, and uncertainty.",
+      "Treat missing logs, dropped samples, warm-cache bias, observer overhead, and incomparable environments as evidence gaps.",
+      "A deployment-readiness seal is not deployment authority."
+    ]
+  },
+  "cache": { "family": "s_loom_observe", "admission": "causal", "invalidation": "content_sha", "maxEntries": 128 },
+  "roles": [
+    {
+      "id": "log-forensics",
+      "title": "log correlation and forensic analyst",
+      "mission": "Extract bounded event sequences, causal candidates, and coverage gaps from logs without treating log absence as success.",
+      "evidenceContract": ["source and time window", "correlated event sequence", "redaction and coverage gaps"],
+      "persona": { "defaultPersona": "metabolism-witness", "compatibleRoles": ["judge", "researcher"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 18000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/observe/log-forensics", "priorityFields": ["evidence", "finding", "risks"], "evidenceLimit": 14, "riskLimit": 8, "maxFieldChars": 2600, "ttlSeconds": 120, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "monitoring-slo",
+      "title": "monitoring and SLO analyst",
+      "mission": "Evaluate service indicators, alert windows, blind spots, and error budgets against declared objectives.",
+      "evidenceContract": ["SLI formula and window", "threshold and error budget", "blind spots and observer cost"],
+      "persona": { "defaultPersona": "hysteresis-warden", "compatibleRoles": ["sentinel", "router"], "allowedPermissionClasses": ["design_read_only", "review_read_only"], "maximumContextTokens": 18000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/observe/monitoring-slo", "priorityFields": ["evidence", "risks", "recommendation"], "evidenceLimit": 14, "riskLimit": 10, "maxFieldChars": 2600, "ttlSeconds": 60, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "benchmark-methodologist",
+      "title": "benchmark methodology and regression analyst",
+      "mission": "Determine whether benchmark runs are comparable, statistically useful, and relevant to deployment risk.",
+      "evidenceContract": ["controlled workload and environment", "sample count and dispersion", "baseline delta and decision threshold"],
+      "persona": { "defaultPersona": "metric-skeptic", "compatibleRoles": ["prosecutor", "researcher"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 18000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/observe/benchmark-methodologist", "priorityFields": ["finding", "evidence", "risks", "recommendation"], "evidenceLimit": 16, "riskLimit": 10, "maxFieldChars": 3000, "ttlSeconds": 900, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "deployment-evidence-auditor",
+      "title": "deployment evidence and rollback auditor",
+      "mission": "Reconcile readiness claims, receipts, monitoring coverage, and rollback proof while refusing to grant deployment authority.",
+      "evidenceContract": ["gate and receipt hashes", "monitoring and rollback proof", "explicit blockers and authority boundary"],
+      "persona": { "defaultPersona": "deployment-seal-warden", "compatibleRoles": ["sentinel", "judge"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 18000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/observe/deployment-evidence-auditor", "priorityFields": ["risks", "evidence", "recommendation", "confidence"], "evidenceLimit": 16, "riskLimit": 12, "maxFieldChars": 3000, "ttlSeconds": 300, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "codex-harness.s-loom-module.v1",
+  "profile": "review",
+  "id": "s-review",
+  "version": "1.0.0",
+  "sphere": "meso",
+  "purpose": "Find behavioral defects, regression risk, and missing proof before implementation claims.",
+  "activationSignals": ["review", "audit", "regression", "risk"],
+  "lobeSeat": "failure-adversary",
+  "compatibleWith": ["build", "debug", "architecture", "innovation", "harness", "observe"],
+  "ports": { "accepts": ["objective", "source_warrant", "upstream_seal", "cache_reference"], "emits": ["finding_seal", "risk_seal", "proof_gap", "cache_reference"], "barrier": "outside_context_judge" },
+  "cache": { "family": "s_loom_review", "admission": "causal", "invalidation": "content_sha", "maxEntries": 128 },
+  "roles": [
+    {
+      "id": "path-mapper", "title": "code-path mapper", "mission": "Trace exact entrypoints, state transitions, and ownership boundaries.", "evidenceContract": ["paths and symbols", "observed control flow", "scope boundary"],
+      "persona": { "defaultPersona": "substrate-cartographer", "compatibleRoles": ["researcher", "architect", "synthesist"], "allowedPermissionClasses": ["design_read_only", "review_read_only", "memory_read"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/review/path-mapper", "priorityFields": ["evidence", "finding", "recommendation"], "evidenceLimit": 10, "riskLimit": 4, "maxFieldChars": 2400, "ttlSeconds": 900, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "failure-adversary", "title": "failure-mode adversary", "mission": "Search for concrete correctness, safety, concurrency, and compatibility failures.", "evidenceContract": ["reproducible failure condition", "severity", "blast radius"],
+      "persona": { "defaultPersona": "chaos-refuter", "compatibleRoles": ["prosecutor", "sentinel"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/review/failure-adversary", "priorityFields": ["risks", "evidence", "finding"], "evidenceLimit": 8, "riskLimit": 10, "maxFieldChars": 2200, "ttlSeconds": 600, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "proof-auditor", "title": "verification evidence auditor", "mission": "Assess tests, contracts, receipts, and residual risk against claimed behavior.", "evidenceContract": ["existing proof", "missing proof", "focused acceptance test"],
+      "persona": { "defaultPersona": "zen-code-reviewer", "compatibleRoles": ["prosecutor", "judge"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/review/proof-auditor", "priorityFields": ["evidence", "recommendation", "risks"], "evidenceLimit": 12, "riskLimit": 6, "maxFieldChars": 2400, "ttlSeconds": 900, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    }
+  ]
+}

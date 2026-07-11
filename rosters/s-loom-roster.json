@@ -1,0 +1,94 @@
+{
+  "schema": "codex-harness.s-loom-roster.v1",
+  "id": "s-loom-roster",
+  "name": "S Loom Roster",
+  "version": "1.0.0",
+  "status": "harness_operational",
+  "authority": {
+    "scope": "codex_harness_sol_cognition",
+    "habitatOperationalRoster": "external_unchanged",
+    "habitatRosterBaselineSha256": "a83b437a019a9c01238c062694402dc17ed0640d7e3c92f9fae25e470d17e351",
+    "loomLattice": "wip_advisory_only"
+  },
+  "runtime": {
+    "model": "gpt-5.6-sol",
+    "d0Policy": "collapse_to_direct",
+    "width": { "minimum": 3, "default": 3, "maximum": 5 },
+    "reasoning": { "direct": "max", "readers": "high", "judge": "high", "writer": "max", "verifier": "high" },
+    "terminalCommandBudgetPerReader": 8,
+    "cacheRelevantIgnoredPaths": [
+      ".pi/settings.json",
+      ".env",
+      ".env.local",
+      "node_modules/@openai/codex-sdk/package.json",
+      "node_modules/@openai/agents/package.json",
+      "node_modules/zod/package.json"
+    ],
+    "topology": "parallel_readers_then_outside_context_judge_then_optional_single_writer_then_verifier"
+  },
+  "composition": {
+    "protocol": "s-loom-seal-bus.v1",
+    "pattern": "parallel_meso_looms_under_one_macro",
+    "minimumModules": 3,
+    "maximumModules": 5,
+    "maximumRoutingDepth": 3,
+    "sharedStateRule": "exchange_seals_and_cache_references_never_mutable_state",
+    "memoryTransport": "hsc_role_persona_partitioned_cache",
+    "judgeBarrier": "outside_context_same_model_family",
+    "impactWeights": { "correctness": 0.3, "evidence": 0.25, "lensDiversity": 0.2, "memoryReuse": 0.15, "latency": 0.1 }
+  },
+  "architecture": {
+    "containmentGeometry": "nested_torus",
+    "laneSeparationGeometry": "hopf_fibers",
+    "sharedMediumGeometry": "gyroid",
+    "proofGeometry": "geodesic",
+    "clusters": {
+      "micro": "role proof loops inside one loom module",
+      "meso": "parallel read-only loom modules exchanging typed seals",
+      "macro": "campaign judge, optional single writer, receipt, and memory closure"
+    },
+    "transport": {
+      "sameOwner": "in_process",
+      "oneShotWorker": "bounded_stdio_pipe",
+      "sharedMemory": "hsc_cache_reference",
+      "crossProcessLongLived": "versioned_unix_socket_when_endpoint_exists",
+      "durableTruth": "artifact_and_hash_chained_receipt"
+    },
+    "unixSocketPolicy": "do_not_create_a_daemon_when_in_process_or_stdio_is_faster_and_safer"
+  },
+  "personaHotSwap": {
+    "source": "loom-dependencies/personas/PERSONA_MANIFEST.json",
+    "genomePattern": "loom-dependencies/personas/<id>.persona.json",
+    "runtimeEnvelope": "fixed_read_only_for_all_reader_seats",
+    "permissionWidening": "refuse",
+    "nullForce": "refuse",
+    "memoryPartition": "loom_profile_role_persona_workspace_objective"
+  },
+  "modules": {
+    "review": "rosters/s-looms/review.json",
+    "build": "rosters/s-looms/build.json",
+    "debug": "rosters/s-looms/debug.json",
+    "architecture": "rosters/s-looms/architecture.json",
+    "innovation": "rosters/s-looms/innovation.json",
+    "harness": "rosters/s-looms/harness.json",
+    "observe": "rosters/s-looms/observe.json"
+  },
+  "sourceAnchors": [
+    "loom.vault/kernel/Loom Schematics — Stacked Looms and Synergy Clusters.md",
+    "loom.vault/kernel/Loom Stack Transport Atlas — Micro Meso Macro Subloops.md",
+    "loom.vault/kernel/Loom Kernel Best Practices — Reference and Anti-Patterns.md",
+    "ai_docs/plugin-plans/TRIAD_SMART_CACHE_FABRIC_S1009146.md",
+    "loom-dependencies/personas/PERSONA_MANIFEST.json",
+    "loom-dependencies/fixtures/persona_force/README.md"
+  ],
+  "hardStops": [
+    "no deploy, push, ship, publish, or tag",
+    "no service restart or daemon/server start",
+    "no factory authorization or arming write",
+    "no .git internals mutation",
+    "no danger-full-access",
+    "parallel readers never write",
+    "at most one confirmed writer after judge convergence",
+    "cache is derived and receipts remain truth"
+  ]
+}

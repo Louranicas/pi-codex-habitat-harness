@@ -1,0 +1,30 @@
+{
+  "schema": "codex-harness.s-loom-module.v1",
+  "profile": "harness",
+  "id": "s-harness",
+  "version": "1.0.0",
+  "sphere": "meso",
+  "purpose": "Audit Codex Harness runtime, reload, terminal, roster, cache, and receipt integration.",
+  "activationSignals": ["harness", "reload", "roster", "terminal", "receipt", "cache"],
+  "lobeSeat": "cognition-auditor",
+  "compatibleWith": ["review", "build", "debug", "architecture", "innovation", "observe"],
+  "ports": { "accepts": ["objective", "runtime_inventory", "boundary_seal", "cache_reference"], "emits": ["runtime_seal", "boundary_proof", "evidence_chain_seal", "cache_reference"], "barrier": "outside_context_judge" },
+  "cache": { "family": "s_loom_harness", "admission": "causal", "invalidation": "content_sha", "maxEntries": 64 },
+  "roles": [
+    {
+      "id": "runtime-auditor", "title": "SOL runtime and reload auditor", "mission": "Verify package discovery, model configuration, SDK capability, and reload-visible resources.", "evidenceContract": ["runtime config", "package source", "reload proof"],
+      "persona": { "defaultPersona": "tool-web-cartographer", "compatibleRoles": ["synthesist", "researcher"], "allowedPermissionClasses": ["design_read_only", "review_read_only", "memory_read"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/harness/runtime-auditor", "priorityFields": ["evidence", "finding", "risks"], "evidenceLimit": 12, "riskLimit": 6, "maxFieldChars": 2400, "ttlSeconds": 300, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "terminal-auditor", "title": "terminal and write-boundary auditor", "mission": "Verify native CLI access, workspace containment, confirmations, and hard stops.", "evidenceContract": ["allowed path", "refused path", "boundary implementation"],
+      "persona": { "defaultPersona": "actuation-sentinel", "compatibleRoles": ["sentinel", "prosecutor"], "allowedPermissionClasses": ["review_read_only"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/harness/terminal-auditor", "priorityFields": ["risks", "evidence", "recommendation"], "evidenceLimit": 10, "riskLimit": 10, "maxFieldChars": 2200, "ttlSeconds": 300, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    },
+    {
+      "id": "cognition-auditor", "title": "loom and evidence-chain auditor", "mission": "Verify roster separation, D0 selection, judge barriers, cache causality, receipts, and honest maturity claims.", "evidenceContract": ["roster source", "topology proof", "cache and receipt status"],
+      "persona": { "defaultPersona": "crosslobe-receipt-reconciler", "compatibleRoles": ["judge", "steward"], "allowedPermissionClasses": ["design_read_only", "review_read_only", "memory_read"], "maximumContextTokens": 24000, "requiresProvenance": true },
+      "memory": { "namespace": "s-loom/harness/cognition-auditor", "priorityFields": ["evidence", "risks", "recommendation"], "evidenceLimit": 12, "riskLimit": 8, "maxFieldChars": 2600, "ttlSeconds": 300, "negativeEdgeOnFailure": false, "personaPartitioned": true }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SOL 5.6 Terminal Loom"
+  short_description: "Operate terminal-first SOL looms and tools"
+  default_prompt: "Use $sol56-terminal-loom to run this task through the Codex Harness with the appropriate direct or S Loom path."
