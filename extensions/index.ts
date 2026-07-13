@@ -54,13 +54,16 @@ export default function codexPiHarnessExtension(pi: PiApi) {
         ctx.ui.notify("Save-session dispatch unavailable; use /skill:save-session", "warning");
         return;
       }
-      const supplied = args.trim() || "No checkpoint fields were supplied. Ask for all missing required fields in one concise message before writing.";
+      const supplied = args.trim();
+      const fieldDirective = supplied
+        ? `User-supplied checkpoint fields (authoritative; derive only omissions): ${supplied}`
+        : "No checkpoint fields were supplied. Zenguard has carriage: derive all five fields from the current conversation and fresh canonical checkpoint state, do not ask the operator to complete a form, and stop before writes only if a unique next session identity cannot be proven.";
       const prompt = [
         "/skill:save-session",
-        "The user explicitly requests a session checkpoint. Follow the skill's intent gate, input contract, substrate separation, migration guards, and fresh read-back receipt requirements.",
+        "The user explicitly requests a session checkpoint. Follow the skill's intent gate, Zenguard carriage contract, substrate separation, migration guards, and fresh read-back receipt requirements.",
         "Do not call the legacy global save_session or save_verify tools.",
         "Interpret pipe-separated fields as: session number | one-line summary | key findings | next-session priorities | Ember reflection.",
-        `User-supplied checkpoint fields: ${supplied}`,
+        fieldDirective,
       ].join("\n\n");
       if (ctx.isIdle?.() === false) {
         pi.sendUserMessage(prompt, { deliverAs: "followUp" });

@@ -1,4 +1,4 @@
 interface:
   display_name: "Save Session"
   short_description: "Persist and verify a resumable session checkpoint"
-  default_prompt: "Use $save-session to checkpoint this session across the Habitat memory layers and verify every durable write."
+  default_prompt: "Use $save-session to checkpoint this session across the Habitat memory layers, let Zenguard derive any omitted administrative fields from evidence, preserve all authority boundaries, and verify every durable write."

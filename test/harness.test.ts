@@ -83,6 +83,29 @@ describe("S1008820 first-slice offline judge spine", () => {
     expect(sent).toContain("Do not call the legacy global save_session or save_verify tools.");
   });
 
+  it("delegates missing checkpoint fields to Zenguard carriage without an operator form loop", async () => {
+    let handler: ((args: string, ctx: { cwd: string; isIdle?: () => boolean; ui: { notify: (message: string, level?: string) => void } }) => Promise<void> | void) | undefined;
+    let sent = "";
+    codexPiHarnessExtension({
+      registerCommand: (name, options) => {
+        if (name === "save-session") handler = options.handler;
+      },
+      registerTool: () => undefined,
+      sendUserMessage: (message) => { sent = message; },
+    });
+    expect(handler).toBeDefined();
+    await handler!("", {
+      cwd: workspace,
+      isIdle: () => true,
+      ui: { notify: () => undefined },
+    });
+    expect(sent).toContain("Zenguard has carriage");
+    expect(sent).toContain("derive all five fields");
+    expect(sent).toContain("do not ask the operator to complete a form");
+    expect(sent).toContain("unique next session identity");
+    expect(sent).not.toContain("Ask for all missing required fields");
+  });
+
   it("blocks the legacy save broadcaster at the tool boundary", async () => {
     const handlers: Array<(event: { toolName?: string; input?: Record<string, unknown> }, ctx: { cwd: string }) => Promise<{ block: true; reason: string } | undefined>> = [];
     codexPiHarnessExtension({

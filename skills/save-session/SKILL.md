@@ -1,11 +1,15 @@
 ---
 name: save-session
-description: "Persist an explicitly requested end-of-session checkpoint across Habitat memory, resume, vault, transcript, and coordination surfaces with stable bidirectional anchors and fresh read-back receipts. Use when the user invokes /save-session or asks to save, checkpoint, persist, or hand off the current session before clear, compact, exit, or context loss. Do not perform checkpoint writes when the user only asks to inspect, explain, learn, install, or modify this skill."
+description: "Persist an explicitly requested end-of-session checkpoint across Habitat memory, resume, vault, transcript, and coordination surfaces with stable bidirectional anchors and fresh read-back receipts. Use when the user invokes /save-session, delegates checkpoint carriage, or asks to save, checkpoint, persist, or hand off before context loss. Missing checkpoint fields are evidence-grounded by Zenguard rather than repeatedly returned to the operator. Do not write when the user only asks to inspect, explain, learn, install, or modify this skill."
 ---
 
 # Save Session
 
 Create a resumable session checkpoint whose claims can be recovered and verified from independent Habitat surfaces. Treat partial persistence honestly; a successful command is not proof that a write landed.
+
+## Pi And Codex Invocation
+
+In Pi, invoke `/save-session` or `/skill:save-session`. In Codex, invoke `$save-session` or select `save-session` through `/skills`. The Pi extension command delegates into this skill and must never route through the legacy global broadcaster.
 
 ## Intent Gate
 
@@ -18,9 +22,9 @@ Create a resumable session checkpoint whose claims can be recovered and verified
 3. Give the active CLI help, live database schema, and most recent explicit retirement or migration authority precedence over stale command examples. If authorities conflict, do not write the disputed substrate; report it and continue with independent, undisputed layers.
 4. Do not turn a session save into commit, push, deploy, service restart, permission widening, or cleanup work.
 
-## Input Contract
+## Input Contract And Zenguard Carriage
 
-Collect any missing user-owned fields before writing:
+The checkpoint has five logical fields:
 
 1. Session number.
 2. One-line accomplishment summary.
@@ -28,7 +32,18 @@ Collect any missing user-owned fields before writing:
 4. Next-session priorities.
 5. Ember reflection: what changed during the session.
 
-Derive the experience snapshot from evidence in the conversation: Energy, Breakthroughs, Unfinished threads, About Luke, and Carry forward. Do not invent metrics, test results, service health, or completed work. Use `sNNN-SLUG` as the stable checkpoint label and `session-checkpoint-sNNN-SLUG` as the HMS record ID.
+Treat supplied fields as operator-owned and authoritative. **Do not ask for omitted fields by default.** An explicit checkpoint request with missing fields delegates carriage to Zenguard: derive the omissions from the current conversation and fresh ground truth, label them internally as assistant-curated, and continue through the normal safety and verification gates.
+
+Carriage rules:
+
+- Derive the session number from the latest freshly read, verified canonical checkpoint sequence and select its next unused integer. Cross-check HMS, Atuin resume state, and the current Obsidian/session index. Never guess from wall-clock time or reuse an occupied identity.
+- If those authorities conflict such that no unique next number can be proven, stop before every checkpoint write and report `DEFERRED-SESSION-ID-CONFLICT` with the conflicting identities. Do not bounce the five-field form back to the operator.
+- Build the summary and findings only from source, command, test, and receipt evidence visible in this session. Omit uncertain claims rather than embellishing them.
+- Derive priorities from unfinished threads and explicit blockers; never convert a possible follow-up into deploy, push, permission, or factory authority.
+- Derive the Ember reflection from observed changes in approach, understanding, restraint, or verification—not from invented emotion or metrics.
+- If the operator explicitly asks for an interview or draft approval, pause before writes and present the derived fields once. Otherwise, carriage means proceed without a confirmation loop.
+
+Derive the experience snapshot from the same evidence: Energy, Breakthroughs, Unfinished threads, About Luke, and Carry forward. Do not invent metrics, test results, service health, or completed work. Use `sNNN-SLUG` as the stable checkpoint label and `session-checkpoint-sNNN-SLUG` as the HMS record ID.
 
 ## Safety Invariants
 
